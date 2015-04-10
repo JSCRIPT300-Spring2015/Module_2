@@ -6,7 +6,8 @@
 var enhancedDate = (function iffe() {
   'use strict'
     function now() {
-        return new Date()
+        var now = new Date();
+        return now;
     }
     var dateObjects = {
       dateTime: now(),
@@ -25,37 +26,56 @@ var enhancedDate = (function iffe() {
               dateObjects.dateTime = new Date();
           }
           else {
-              console.log('argument is not istanceof Date');
+              dateObjects.dateTime = 'argument is not istanceof Date or number';
           }
-          console.log(dateObjects.dateTime);
+          return dateObjects.dateTime;
       },
       getDate: function getDate(e) {
           if (e === true){
-              console.log(dateObjects.dateTime);
+              return dateObjects.dateTime;
           }
       },
       getDayName: function getDayName() {
           var day = dateObjects.dateTime.getDay()
-          console.log(dateObjects.dayNames[day]);
+          return dateObjects.dayNames[day];
       },
       getMonthName: function getMonthName () {
           var month = dateObjects.dateTime.getMonth();
-          console.log(dateObjects.monthNames[month]);
+          return dateObjects.monthNames[month];
       },
       isFuture: function isFuture() {
-          if (now().getTime() > dateObjects.dateTime.getTime()) {
-              console.log(true);
+          if (now().getTime() < dateObjects.dateTime.getTime()) {
+              true;
+          }
+          else {
+              return false;
           }
       },
       isToday: function isToday() {
-          if (now().getTime() > dateObjects.dateTime.getTime()) {
-              console.log(true);
+          var year = now().getFullYear();
+          var month = now().getMonth();
+          var day = now().getDate();
+          var nextDay = new Date(year, month, day).getTime() + 86400000;
+          var currentDay = new Date(year,month,day).getTime();
+          var time = dateObjects.dateTime.getTime();
+          if (time < nextDay && time >= currentDay) {
+              return true;
+          } else {
+              return false;
           }
       }
   };
 
 })();
 
-enhancedDate.getDate(true);
-enhancedDate.isFuture()
-enhancedDate.is
+console.log(enhancedDate.getDate(true));
+console.log(enhancedDate.isFuture());
+console.log(enhancedDate.isToday());
+console.log(enhancedDate.setDate());
+console.log(enhancedDate.getDate(true));
+console.log(enhancedDate.getMonthName());
+console.log(enhancedDate.getDayName());
+console.log(enhancedDate.setDate(24026454306430));
+console.log(enhancedDate.getDate(true));
+console.log(enhancedDate.isFuture());
+console.log(enhancedDate.isToday());
