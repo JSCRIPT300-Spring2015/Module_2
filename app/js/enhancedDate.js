@@ -10,7 +10,7 @@ var enhancedDate = (function iffe() {
   }
 
   var dateObjects = {
-    dateTime: now(),
+    dateTime: '',
     monthNames: ['January',
       'February',
       'March',
@@ -29,7 +29,8 @@ var enhancedDate = (function iffe() {
       'Wednesday',
       'Thursday',
       'Friday',
-      'Saturday']
+      'Saturday'],
+    milsDay: 86400000
   };
 
   return {
@@ -44,14 +45,24 @@ var enhancedDate = (function iffe() {
         dateObjects.dateTime = new Date();
       }
       else {
-        console.warn('argument is not instanceof Date');
+        console.warn('argument is not instanceof Date or epoch');
       }
       return dateObjects.dateTime;
     },
     getDate: function getDate(e) {
-      if (e === true) {
-        return dateObjects.dateTime;
+      var time = dateObjects.dateTime;
+
+      // set current time if dateObject.date is undefined
+      if (time === undefined || !(time instanceof Date))  {
+        dateObjects.dateTime = now();
+        time = dateObjects.dateTime;
       }
+
+      if (e !== true) {
+        time = dateObjects.dateTime.getTime();
+      }
+
+      return time;
     },
     getDayName: function getDayName() {
       var day = dateObjects.dateTime.getDay();
@@ -73,7 +84,7 @@ var enhancedDate = (function iffe() {
       var year = now().getFullYear();
       var month = now().getMonth();
       var day = now().getDate();
-      var nextDay = new Date(year, month, day).getTime() + 86400000;
+      var nextDay = new Date(year, month, day).getTime() + dateObjects.milsDay;
       var currentDay = new Date(year, month, day).getTime();
       var time = dateObjects.dateTime.getTime();
       if (time < nextDay && time >= currentDay) {
