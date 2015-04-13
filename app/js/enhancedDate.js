@@ -7,7 +7,7 @@ var myDate = (function iife() {
             if (theDate instanceof Date) {
                 return true; 
             } else {
-                return true;    
+                return false;    
             }
         },
 
@@ -31,24 +31,55 @@ var myDate = (function iife() {
         },
 
         getDayName: function getDayName(userDate) {
-            //TODO:  from the date set with setDate, calculate the
-            //name of the day
-            this.checkDate();
+            
+            var dayName;
+
+            if (!this.checkDate(userDate)) {
+                this.setDate(userDate); 
+            }
+            dayName = Date.prototype.getDayName(theDate);
+            return dayName;
         },
 
         getMonthName:  function getMonthName(userDate) {
-        	//TODO:  from the date set with setDate, calculate the 
-        	//name of the month
+        	
+            var monthName;
+
+            if (!this.checkDate(userDate)) {
+                this.setDate(userDate); 
+            }
+
+            monthName = Date.prototype.getMonthName(theDate);
+            return monthName;
+
         },
 
         isFuture: function isFuture(userDate) {
-        	//TODO:  from the date set with setDAte, determine if 
-        	//that date is in the future
+
+            var todaysDate = new Date();
+
+            if (!this.checkDate(userDate)) {
+                this.setDate(userDate); 
+            }
+            if (todaysDate > theDate) {
+                return false;
+            } else {
+                return true;
+            }
         },
 
         isToday: function isToday(userDate) {
-        	//TODO:  from the date set with setDate, determine if
-        	//that date is today
+
+            var todaysDate = new Date();
+
+            if (!this.checkDate(userDate)) {
+                this.setDate(userDate); 
+            }
+            if (todaysDate === theDate) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
     };    
