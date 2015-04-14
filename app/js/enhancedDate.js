@@ -21,7 +21,7 @@ var myDate = (function iife() {
                     theDate = new Date();
                 }
             }           
-            console.log("In set date - date = ", theDate);      
+            //console.log("In set date - date = ", theDate);      
         }, 
 
         getDate: function getDate(userDate) {            
@@ -33,24 +33,71 @@ var myDate = (function iife() {
         getDayName: function getDayName(userDate) {
             
             var dayName;
+            var dayNumber;
 
             if (!this.checkDate(userDate)) {
                 this.setDate(userDate); 
             }
-            dayName = Date.prototype.getDayName(theDate);
-            return dayName;
+
+            dayNumber = theDate.getDay();
+            //console.log('dayNumber = ', dayNumber);
+            if (dayNumber === 0) {
+                dayName = 'Sunday';
+            } else if (dayNumber === 1) {
+                dayName = 'Monday';
+            } else if (dayNumber === 2) {
+                dayName = 'Tuesday';
+            } else if (dayNumber === 3) {
+                dayName = 'Wednesday';
+            } else if (dayNumber === 4) {
+                dayName = 'Thursday';
+            } else if (dayNumber === 5) {
+                dayName = 'Friday';
+            } else {
+                dayName = 'Saturday';
+            }
+        //console.log("Day of the week is ", dayName);
+        return dayName;
         },
 
         getMonthName:  function getMonthName(userDate) {
         	
             var monthName;
-
+            var monthNumber
             if (!this.checkDate(userDate)) {
                 this.setDate(userDate); 
             }
 
-            monthName = Date.prototype.getMonthName(theDate);
-            return monthName;
+            monthNumber = theDate.getMonth();            
+
+            if (monthNumber === 0) {
+                monthName = 'January';
+            } else if (monthNumber === 1) {
+                monthName = 'February';
+            } else if (monthNumber === 2) {
+                monthName = 'March';
+            } else if (monthNumber === 3) {
+                monthName = 'April';
+            } else if (monthNumber === 4) {
+                monthName = 'May';
+            } else if (monthNumber === 5) {
+                 monthName = 'June';
+            } else if (monthNumber === 6) {
+                monthName = 'July';
+            } else if (monthNumber === 7) {
+                monthName = 'August';
+            } else if (monthNumber === 8) {
+                monthName = 'September';
+            } else if (monthNumber === 9) {
+                monthName = 'October';
+            } else if (monthNumber === 10) {
+                monthName = 'November';
+            } else {
+                monthName = 'December';
+            }
+
+        //console.log("Month is ", monthName);
+        return monthName;
 
         },
 
