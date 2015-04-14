@@ -23,7 +23,7 @@ var enhancedDate = (function enhancedDate() {
   }
 
   //Public API
-  return {
+  var publicAPI = {
     /* setDate: Stores the passed-in date. Takes milliseconds after epoch or a 
     date object. Do some type-checking to make sure you have a valid type. If 
     no value is passed, default to now.*/
@@ -78,6 +78,7 @@ var enhancedDate = (function enhancedDate() {
       return isToday;
     }
   };
+  return publicAPI;
 })();
 
 console.log(enhancedDate.getDate());
