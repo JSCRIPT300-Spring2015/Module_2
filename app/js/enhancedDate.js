@@ -81,7 +81,6 @@ var enhancedDate = (function () {
 	function isToday(){
 		setNewDate();
 		return (now.getTime() == newDate.getTime());
-		return (newDate.getFullYear() === now.getFullYear() && newDate.getMonth() === now.getMonth() && newDate.getDay() === now.getDay());
 	}
 
     publicAPI = {
