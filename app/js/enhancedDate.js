@@ -30,8 +30,8 @@ var enhancedDate = (function enhancedDate() {
     var publicAPI = {
 
         /*
-         *	Stores the passed-in date. This function can take milliseconds after epoch or a Date object.  
-         *	Do some type-checking to make sure you have a valid type. If no value is passed, default your internally stored date to now.
+         * Stores the passed-in date. This function can take milliseconds after epoch or a Date object.  
+         * Do some type-checking to make sure you have a valid type. If no value is passed, default your internally stored date to now.
         */
         setDate: function setDate(inputDate) {
 
@@ -75,7 +75,7 @@ var enhancedDate = (function enhancedDate() {
 
         // Return the full month name as a string, e.g. "January", "February", etc.
         getMonthName: function getMonthName() {
-			
+
 		    checkHasDate();
 		    return privateData.months[privateData.storedDate.getMonth()];
         },
