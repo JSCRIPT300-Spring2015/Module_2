@@ -8,16 +8,16 @@
 
 var enhancedDate = (function enhancedDate() {
 
-	'use strict';
+    'use strict';
 
-	//Private data, which is data that is used only internally by the module and is not exposed as part of the public API
-	var privateData = {
-	    days : ['Sunday', 'Monday', 'Tuesday', 'Wednesday',
-	                 'Thursday', 'Friday', 'Saturday'],
-	    months : ['January', 'February', 'March', 'April', 'May',
-	               'June', 'July', 'August', 'September', 'October',
-	               'November', 'December']
-	};
+    //Private data, which is data that is used only internally by the module and is not exposed as part of the public API
+    var privateData = {
+        days : ['Sunday', 'Monday', 'Tuesday', 'Wednesday',
+                     'Thursday', 'Friday', 'Saturday'],
+        months : ['January', 'February', 'March', 'April', 'May',
+                   'June', 'July', 'August', 'September', 'October',
+                   'November', 'December']
+    };
 
     // check if a date has already been set, and if not, set a new date at that time.
     function checkHasDate(){
@@ -27,28 +27,27 @@ var enhancedDate = (function enhancedDate() {
         }
     }
 
-	var publicAPI = {
+    var publicAPI = {
 
         /*
-         *	Stores the passed-in date. This function can take milliseconds after epoch or a Date object. 
-         *	Do some type-checking to make sure you have a valid type. If no value is passed,
-         *  default your internally stored date to now.
+         *	Stores the passed-in date. This function can take milliseconds after epoch or a Date object.  
+         *	Do some type-checking to make sure you have a valid type. If no value is passed, default your internally stored date to now.
         */
         setDate: function setDate(inputDate) {
-			
+
             checkHasDate();
 
             if (inputDate){
 
-            	// check if a valid date type
-            	if (Object.prototype.toString.call(inputDate) === '[object Date]' && !isNaN(inputDate)){
-            		privateData.storedDate = inputDate;
-            	}
+                // check if a valid date type
+                if (Object.prototype.toString.call(inputDate) === '[object Date]' && !isNaN(inputDate)){
+                    privateData.storedDate = inputDate;
+                }
 
-            	// check if pass milliseconds
-            	if (isNaN(inputDate)){
-            		privateData.storedDate = new Date(inputDate);
-            	}            	
+                // check if pass milliseconds
+                if (isNaN(inputDate)){
+                    privateData.storedDate = new Date(inputDate);
+                }
             }            
         },
 
@@ -71,14 +70,14 @@ var enhancedDate = (function enhancedDate() {
         getDayName: function getDayName() {
             
             checkHasDate();
-			return privateData.days[privateData.storedDate.getDay()];
+		    return privateData.days[privateData.storedDate.getDay()];
         },
 
         // Return the full month name as a string, e.g. "January", "February", etc.
         getMonthName: function getMonthName() {
 			
 		    checkHasDate();
-			return privateData.months[privateData.storedDate.getMonth()];
+		    return privateData.months[privateData.storedDate.getMonth()];
         },
 
         // Return boolean true if date is in the future (from when method is called)
