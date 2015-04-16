@@ -18,8 +18,8 @@ var enhancedDate = (function enhancedDate() {
 	               'June', 'July', 'August', 'September', 'October',
 	               'November', 'December']
 	};
-	
-	// check if a date has already been set, and if not, set a new date at that time.
+
+    // check if a date has already been set, and if not, set a new date at that time.
     function checkHasDate(){
     	
     	if (!privateData.storedDate) {
@@ -29,14 +29,14 @@ var enhancedDate = (function enhancedDate() {
 
 	var publicAPI = {
 
-		/*
-		 *	Stores the passed-in date. This function can take milliseconds after epoch or a Date object. 
-		 *	Do some type-checking to make sure you have a valid type. If no value is passed, 
-	     *	default your internally stored date to now.
-		*/
+        /*
+         *	Stores the passed-in date. This function can take milliseconds after epoch or a Date object. 
+         *	Do some type-checking to make sure you have a valid type. If no value is passed,
+         *  default your internally stored date to now.
+        */
         setDate: function setDate(inputDate) {
 			
-			checkHasDate();
+            checkHasDate();
 
             if (inputDate){
 
@@ -77,7 +77,7 @@ var enhancedDate = (function enhancedDate() {
         // Return the full month name as a string, e.g. "January", "February", etc.
         getMonthName: function getMonthName() {
 			
-			checkHasDate();
+		    checkHasDate();
 			return privateData.months[privateData.storedDate.getMonth()];
         },
 
@@ -91,7 +91,7 @@ var enhancedDate = (function enhancedDate() {
         // Return boolean true if the stored date is "today".
         isToday: function isToday() {
 
-          	checkHasDate();
+            checkHasDate();
             return privateData.storedDate.toDateString() === new Date().toDateString();
         }
     };    
