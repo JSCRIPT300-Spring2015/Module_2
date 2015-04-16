@@ -30,11 +30,8 @@ var enhancedDate = (function() {
                 d = inputDate;
             } else if (newDate instanceof Date){
                 d = newDate;                
-            } else if (typeof inputDate === "undefined") {
-                // if no value is passed to setDate
-                d = new Date();     
-            } else {
-                return alert("TypeError: Invalid parameter input for setDate method.");
+            } else if (!(d instanceof Date)) {
+                d = new Date();
             }
         },
         
@@ -43,7 +40,7 @@ var enhancedDate = (function() {
             if (param) {
                 return d;
             }
-            return d.getTime();    //default: millisecond after epoch         
+            return d.getTime();             
         },  
         
         getDayName: function() {
