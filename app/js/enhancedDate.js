@@ -1,20 +1,25 @@
 /*
+ * add your module definition for enhancedDate here
+ * assign the module to a global variable
+ * /
+
+/*
  * Carolyn Velez
  * JSCRIPT 300
  * 04/14/15
  */
 
-var foo = (function iife() {
+var enhancedDate = (function iife() {
 
-	var currentDate;
+	var myDate;
 
 	return {
 
 		setDate: function setDate(specificDate) {
 			if (specificDate === undefined) {
-				currentDate = new Date;
+				myDate = new Date;
 			} else {
-				currentDate = specificDate;
+				myDate = specificDate;
 			}
 		},
 
@@ -23,9 +28,9 @@ var foo = (function iife() {
 			var dateMilliseconds;
 
 			if (isObject === true) {
-				return currentDate;
+				return myDate;
 			} else {
-				dateMilliseconds = currentDate.getTime();
+				dateMilliseconds = myDate.getTime();
 				return dateMilliseconds;
 			}
 		},
@@ -36,11 +41,11 @@ var foo = (function iife() {
 
 			var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-			if (currentDate === undefined) {
-				currentDate = new Date;
+			if (myDate === undefined) {
+				myDate = new Date;
 			}
 
-			dayValue = currentDate.getDay();
+			dayValue = myDate.getDay();
 
 			return weekdays[dayValue];
 		},
@@ -51,27 +56,32 @@ var foo = (function iife() {
 
 			var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-			if (currentDate === undefined) {
-				currentDate = new Date;
+			if (myDate === undefined) {
+				myDate = new Date;
 			}
 
-			monthValue = currentDate.getMonth();
+			monthValue = myDate.getMonth();
 
 			return months[monthValue];
 		},
 
 		isFuture: function isFuture() {
 
-			// Get today
-			var today = new Date("3/4/2005");
-			var todayValue = today.toDateString();
+			// Get today's date in milliseconds
+			var todayValue = Date.now();
+			console.log(todayValue);
 
-			// Compare date enter with today's date
-			if (currentDate > todayValue) {
+			// Get date entered in milliseconds
+			var myDate = new Date("3/4/15");
+			var myNewDate = myDate.getTime();
+			console.log(myNewDate);
+
+			// Compare today's date with date entered
+			if (myNewDate > todayValue) {
 				return true;
+			} else {
+				return false;
 			}
-
-			console.log("today value; " + todayValue);
 		}
 
 	};
@@ -79,28 +89,25 @@ var foo = (function iife() {
 
 // Show today's date by default when no date is passed into setDate:
 var newDate = new Date;
-foo.setDate(newDate);
+enhancedDate.setDate(newDate);
 console.log(newDate);
-
-// Show month when the date object is using the getMonth property:
-console.log(newDate.getMonth());
 
 // Pass in specific date to setDate:
 var newDate = new Date("3/18/09");
-foo.setDate(newDate);
+enhancedDate.setDate(newDate);
 console.log(newDate);
 
 // Show number of seconds since epoch becuse no date was passed into setDate:
-console.log("Seconds: " + foo.getDate(false));
+console.log("Seconds: " + enhancedDate.getDate(false));
 
 // Show specific date that was passed into setDate:
-console.log("Specific date: " + foo.getDate(true));
+console.log("Specific date: " + enhancedDate.getDate(true));
 
 // Show name of day:
-console.log("Name of day: " + foo.getDayName());
+console.log("Name of day: " + enhancedDate.getDayName());
 
 // Show name of month:
-console.log("Name of month: " + foo.getMonthName());
+console.log("Name of month: " + enhancedDate.getMonthName());
 
 // Date is in future true:
-console.log("Date is in the future: " + foo.isFuture());
+console.log("Date is in the future: " + enhancedDate.isFuture());
