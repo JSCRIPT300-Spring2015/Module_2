@@ -30,6 +30,12 @@ var enhancedDate = (function () {
 	};
 	
 	var newDate;
+	var now = new Date();
+	var setNewDate = function(){
+		if (!newDate){
+			newDate= new Date();			
+		} 
+	};
 	
     function setDate(date) {
     	if (date){
@@ -37,6 +43,8 @@ var enhancedDate = (function () {
     			newDate = new Date(date);
     		} else if(date instanceof Date){
     			newDate= date;
+    		}else {
+    			newDate= new Date();
     		}
     		
     	} else {
@@ -46,9 +54,7 @@ var enhancedDate = (function () {
     }
     
 	function getDate(arg){
-		if (!newDate){
-			newDate= new Date();			
-		} 
+		setNewDate();
 		if(arg===true){
 			return newDate;
 		}else {
@@ -58,16 +64,24 @@ var enhancedDate = (function () {
 	}
 	
 	function getDayName(){
-		
+		setNewDate();
+		return privateAPI.days[newDate.getDay()];
 	}
+	
 	function getMonthName(){
-		
+		setNewDate();
+		return privateAPI.months[newDate.getMonth()];
 	}
+	
 	function isFuture(){
-		
+		setNewDate();
+		return (now.getTime() < newDate.getTime());
 	}
+	
 	function isToday(){
-		
+		setNewDate();
+		return (now.getTime() == newDate.getTime());
+		return (newDate.getFullYear() === now.getFullYear() && newDate.getMonth() === now.getMonth() && newDate.getDay() === now.getDay());
 	}
 
     publicAPI = {
@@ -86,6 +100,6 @@ var message = '';
 
 enhancedDate.setDate(new Date());
 
-message += 'Today is ' + enhancedDate.getDayName() + ' in the month of ' + enhancedDate.getMonthName;
+message += 'Today is ' + enhancedDate.getDayName() + ' in the month of ' + enhancedDate.getMonthName();
 
 console.log(message);
