@@ -21,8 +21,8 @@ var enhancedDate = (function enhancedDate() {
 
     // check if a date has already been set, and if not, set a new date at that time.
     function checkHasDate(){
-    	
-    	if (!privateData.storedDate) {
+    
+        if (!privateData.storedDate) {
             privateData.storedDate = new Date();
         }
     }
@@ -58,26 +58,26 @@ var enhancedDate = (function enhancedDate() {
 
             return
             {
-            	if (isDateObject){
-            		privateData.storedDate;
-            	}else{
-            		privateData.storedDate.getTime();
-            	}            	
-            };            	
+                if (isDateObject){
+                   privateData.storedDate;
+                }else{
+                   privateData.storedDate.getTime();
+                }            
+            };            
         },
 
         // Returns the full day name as a string, e.g. "Monday", "Tuesday", etc.
         getDayName: function getDayName() {
             
             checkHasDate();
-		    return privateData.days[privateData.storedDate.getDay()];
+            return privateData.days[privateData.storedDate.getDay()];
         },
 
         // Return the full month name as a string, e.g. "January", "February", etc.
         getMonthName: function getMonthName() {
 
-		    checkHasDate();
-		    return privateData.months[privateData.storedDate.getMonth()];
+            checkHasDate();
+            return privateData.months[privateData.storedDate.getMonth()];
         },
 
         // Return boolean true if date is in the future (from when method is called)
@@ -96,7 +96,7 @@ var enhancedDate = (function enhancedDate() {
     };    
     return publicAPI;    
 }());
-	
+
 
 // Run test here
 var message = '';
