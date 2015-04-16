@@ -1,5 +1,13 @@
 var myDate = (function iife() {    
+    'use strict';
+
     var theDate;
+    var now;
+    var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 
+        'Friday', 'Saturday'];
+    var monthNames = ['Januray', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'November', 'December'];
+
     // explicit object enhancedDate   
     var enhancedDate = {    
 
@@ -27,13 +35,14 @@ var myDate = (function iife() {
         getDate: function getDate(userDate) {            
             if (!this.checkDate(userDate)) {
                 this.setDate(userDate); 
-            }          
+            }
+            //if (userDate === undefined)                     
         },
 
         getDayName: function getDayName(userDate) {
-            
-            var dayName;
+        
             var dayNumber;
+            var theDay;
 
             if (!this.checkDate(userDate)) {
                 this.setDate(userDate); 
@@ -41,74 +50,37 @@ var myDate = (function iife() {
 
             dayNumber = theDate.getDay();
             //console.log('dayNumber = ', dayNumber);
-            if (dayNumber === 0) {
-                dayName = 'Sunday';
-            } else if (dayNumber === 1) {
-                dayName = 'Monday';
-            } else if (dayNumber === 2) {
-                dayName = 'Tuesday';
-            } else if (dayNumber === 3) {
-                dayName = 'Wednesday';
-            } else if (dayNumber === 4) {
-                dayName = 'Thursday';
-            } else if (dayNumber === 5) {
-                dayName = 'Friday';
-            } else {
-                dayName = 'Saturday';
-            }
-        //console.log("Day of the week is ", dayName);
-        return dayName;
+            theDay = dayNames[dayNumber];
+ 
+        console.log("Day of the week is ", theDay);
+        return theDay;
         },
 
         getMonthName:  function getMonthName(userDate) {
         	
-            var monthName;
-            var monthNumber
+            var theMonth;
+            var monthNumber;
+
             if (!this.checkDate(userDate)) {
                 this.setDate(userDate); 
             }
 
             monthNumber = theDate.getMonth();            
+            theMonth = monthNames[monthNumber];
 
-            if (monthNumber === 0) {
-                monthName = 'January';
-            } else if (monthNumber === 1) {
-                monthName = 'February';
-            } else if (monthNumber === 2) {
-                monthName = 'March';
-            } else if (monthNumber === 3) {
-                monthName = 'April';
-            } else if (monthNumber === 4) {
-                monthName = 'May';
-            } else if (monthNumber === 5) {
-                 monthName = 'June';
-            } else if (monthNumber === 6) {
-                monthName = 'July';
-            } else if (monthNumber === 7) {
-                monthName = 'August';
-            } else if (monthNumber === 8) {
-                monthName = 'September';
-            } else if (monthNumber === 9) {
-                monthName = 'October';
-            } else if (monthNumber === 10) {
-                monthName = 'November';
-            } else {
-                monthName = 'December';
-            }
-
-        //console.log("Month is ", monthName);
-        return monthName;
+        console.log("Month is ", theMonth);
+        return theMonth;
 
         },
 
         isFuture: function isFuture(userDate) {
 
-            var todaysDate = new Date();
+            var now = Date.now();
 
             if (!this.checkDate(userDate)) {
                 this.setDate(userDate); 
             }
-            if (todaysDate > theDate) {
+            if (now > theDate.getTime()) {
                 return false;
             } else {
                 return true;
@@ -117,12 +89,21 @@ var myDate = (function iife() {
 
         isToday: function isToday(userDate) {
 
-            var todaysDate = new Date();
-
             if (!this.checkDate(userDate)) {
                 this.setDate(userDate); 
             }
-            if (todaysDate === theDate) {
+
+            var todaysDate = new Date();
+            var todaysMonth = todaysDate.getDate();
+            var todaysDay = todaysDate.getDay();
+            var todaysYear = todaysDate.getFullYear();
+
+            var passedMonth = theDate.getDate();
+            var passedDay = theDate.getDay();
+            var passedYear = theDate.getFullYear();
+
+            if ((todaysMonth === passedMonth) && (todaysDay === passedDay) &&
+                (todaysYear === passedYear)) {
                 return true;
             } else {
                 return false;
