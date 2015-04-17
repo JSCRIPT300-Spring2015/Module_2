@@ -11,10 +11,18 @@ var enhancedDate = (function () {
 	var dayOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 	var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-	function setDefaultDate() {
+	function isDateSet() {
+
 		if (myDate === null) {
-			setDate();
+
+			setDefaultDate();
+			
 		} 
+	}
+
+	function setDefaultDate() {
+
+		myDate = new Date();
 	}
 
 	return {
@@ -28,13 +36,21 @@ var enhancedDate = (function () {
 		setDate: function ( date ) {
 
 			if ( typeof date === 'number' ){
+
 				myDate = new Date(date);
+
 			} else if ( date instanceof Date ) {
+
 				myDate = date;
+
 			} else if ( date === undefined ) {
-				myDate = new Date();
+
+				//setDefaultDate();
+			myDate = new Date();
 			} else {
+			
 				console.log("ERROR: A type other than a Number or Date was provided");
+			
 			}
 		},
 
@@ -43,49 +59,59 @@ var enhancedDate = (function () {
 		 */ 
 		getDate: function ( date ) {
 			
-			setDefaultDate();
+			isDateSet();
 
 			if ( date === true ){
+
 				return myDate;
+
 			} else {
+				
 				return myDate.getTime();
+
 			}
 		},
 
 		// Returns the full day name as a string, e.g. "Monday", "Tuesday", etc.
 		getDayName: function () {
 			
-			setDefaultDate();
+			isDateSet();
 
 			return dayOfWeek[ myDate.getDay() ];
+
 		},
 
 		// Return the full month name as a string, e.g. "January", "February", etc.
 		getMonthName: function () {
 			
-			setDefaultDate();
+			isDateSet();
 
 			return month[ myDate.getMonth() ];
+
 		},
 
 		// Return boolean true if date is in the future (from when method is called)
 		isFuture: function () {
 			
-			setDefaultDate();
+			isDateSet();
 
 			var dateNow = Date.now();
 
 			if ( myDate.getTime() > dateNow ) {
+
 				return true;
+
 			} else {
+
 				return false;
+
 			}
 		},
 
 		// Return boolean true if the stored date is "today".
 		isToday: function () {
 			
-			setDefaultDate();
+			isDateSet();
 
 			var dateNow = new Date();
 			var dayNow = dateNow.getDay();
@@ -94,7 +120,7 @@ var enhancedDate = (function () {
 
 			if ( dayNow === myDate.getDay() &&
 				 monthNow === myDate.getMonth() &&
-				 yearNow === myDate.getFullYear ) {
+				 yearNow === myDate.getFullYear() ) {
 
 				return true;
 
@@ -106,3 +132,5 @@ var enhancedDate = (function () {
 		}
 	};
 })();
+
+module.exports = enhancedDate;
