@@ -1,9 +1,4 @@
 /*
- * add your module definition for enhancedDate here
- * assign the module to a global variable
- * /
-
-/*
  * Carolyn Velez
  * JSCRIPT 300
  * 04/14/15
@@ -11,8 +6,10 @@
 
 var enhancedDate = (function iife() {
 
+	// private
 	var myDate;
 
+	// public API
 	return {
 
 		setDate: function setDate(specificDate) {
@@ -23,11 +20,16 @@ var enhancedDate = (function iife() {
 			}
 		},
 
-		getDate: function getDate(isObject) {
+		getDate: function getDate(dateInMilliseconds) {
 
+			// create variable to store the value of the number of milliseconds
 			var dateMilliseconds;
 
-			if (isObject === true) {
+			/*
+			 compare number of milliseconds between data user entered
+			 and the number of millisconds for today (default)
+			 */
+			if (dateInMilliseconds === true) {
 				return myDate;
 			} else {
 				dateMilliseconds = myDate.getTime();
@@ -37,14 +39,21 @@ var enhancedDate = (function iife() {
 
 		getDayName: function getDayName() {
 
+			// create variable to store the value of the week
 			var dayValue;
 
+			// create an array of the names of the days of the week
 			var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
+			// if date user entered in undefined, return today's date
 			if (myDate === undefined) {
 				myDate = new Date;
 			}
 
+			/*
+			 set variable to either today's date if undefined
+			 or the date the user entered and covert to day
+			 */
 			dayValue = myDate.getDay();
 
 			return weekdays[dayValue];
@@ -52,32 +61,65 @@ var enhancedDate = (function iife() {
 
 		getMonthName: function getMonthName() {
 
+			// create variable to store the value of the month
 			var monthValue;
 
+			// create an array of the names of the months in a year
 			var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
+			// if date user enter is undefined, return today's date
 			if (myDate === undefined) {
 				myDate = new Date;
 			}
 
+			/*
+			 set variable to either today's date if undefined
+			 or the date the user entered and covert to month
+			 */
 			monthValue = myDate.getMonth();
 
+			// return the month of either undefined or date entered by user
 			return months[monthValue];
 		},
 
 		isFuture: function isFuture() {
 
-			// Get today's date in milliseconds
+			// get the number of milliseconds between now and epoch
 			var todayValue = Date.now();
-			console.log(todayValue);
 
-			// Get date entered in milliseconds
-			var myDate = new Date("3/4/15");
+			// get number of milliseconds on myDate
 			var myNewDate = myDate.getTime();
-			console.log(myNewDate);
 
-			// Compare today's date with date entered
+			/*
+			 if date the user entered is greater than the number
+			 of milliseconds for now, the statement is true
+			 */
 			if (myNewDate > todayValue) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+
+		isToday: function isToday() {
+
+			// create variable for new date object to set the hours for beginning and end of day
+			var isToday = new Date();
+
+			// set variable to beginning of day
+			var isTodayStart = isToday.setHours(0, 0, 0, 0);
+
+			// set variable to end of day
+			var isTodayEnd = isToday.setHours(23, 59, 59, 999);
+
+			// create variable for date stamp of use input to compare in "if" statement so I don't need to call myDate.getTime() twice
+			var myDateTimeStamp = myDate.getTime();
+
+			/*
+			 if myDateTimeStamp is less than or equal to the end of the day or
+			 if it is greater than or equal to the beginning of the day it is today
+			 */
+			if (myDateTimeStamp <= isTodayEnd && myDateTimeStamp >= isTodayStart) {
 				return true;
 			} else {
 				return false;
@@ -87,27 +129,16 @@ var enhancedDate = (function iife() {
 	};
 })();
 
-// Show today's date by default when no date is passed into setDate:
-var newDate = new Date;
+var newDate = new Date ("04/04/20");
 enhancedDate.setDate(newDate);
-console.log(newDate);
+enhancedDate.getDate(newDate);
+enhancedDate.getDayName(newDate);
+enhancedDate.getMonthName(newDate);
+enhancedDate.isFuture(newDate);
+enhancedDate.isToday(newDate);
 
-// Pass in specific date to setDate:
-var newDate = new Date("3/18/09");
-enhancedDate.setDate(newDate);
-console.log(newDate);
-
-// Show number of seconds since epoch becuse no date was passed into setDate:
-console.log("Seconds: " + enhancedDate.getDate(false));
-
-// Show specific date that was passed into setDate:
-console.log("Specific date: " + enhancedDate.getDate(true));
-
-// Show name of day:
-console.log("Name of day: " + enhancedDate.getDayName());
-
-// Show name of month:
-console.log("Name of month: " + enhancedDate.getMonthName());
-
-// Date is in future true:
-console.log("Date is in the future: " + enhancedDate.isFuture());
+// TEST
+var message = "";
+enhancedDate.setDate(new Date("3/4/15"));
+message += "Today is " + enhancedDate.getDayName() + " in the month of " + enhancedDate.getMonthName;
+console.log(message);
