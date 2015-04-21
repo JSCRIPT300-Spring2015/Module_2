@@ -1,40 +1,56 @@
 var enhancedDate = (function (date) {
 // still maintains access to all globals
   
-  var setDate = {};
-
+  var dateMethods = {};
+  var myDate = date;
+  var dateString = Date(year, month, day, hours, minutes, seconds, milliseconds);
+  var newDate = new Date();
+  var epochDate = newDate.getTime();
+  
 //Stores the passed-in date.  
-  setDate = function (date) {
-      var myDate = date;
-    
-//Do some type-checking to make sure you have a valid type.    
-      if(typeof myDate !== null)
-      {
-//Takes milliseconds after epoch or a date object. 
-        
+  dateMethods.checkDate = function () {
+      
 //Do some type-checking to make sure you have a valid type. 
-        if (typeof myDate == Date() || typeof myDate == "number"){
-          myDate = date;
+//Takes milliseconds after epoch or a date object. 
+//Do some type-checking to make sure you have a valid type.
+    
+      if (date){
+        if(myDate instanceof Date)
+        {
+        return true;
+        
+        } else if (typeof myDate === 'number' && (myDate > 0 && myDate <= epochDate))
+        {
+        return true;
+        
         } else {
-          myDate = false;
+        return false;  
         } 
       }
-      else{
-        
-//If no value is passed, default to now.       
-        setDate = Date(year, month, day, hours, minutes, seconds, milliseconds);
+
+//If no value is passed, default to now.   
+      else {
+        myDate = newDate;
+        return true;
       }
-  
-      return myDate;
   };
 
 
 //Returns either milliseconds after epoch by default or a date object if true is passed as an argument.            
-  var getDate = setDate.getTime();
+  dateMethods.getDate = function (){
+    dateMethods.checkDate();
+    
+    if (dateMethods.checkDate === true) {
+        return myDate;
+    }
+  };
 
 //Returns the full day name as a string, e.g. "Monday", "Tuesday", etc.  
-  var getDayName = function () {
-      switch (setDate.getDay()) {
+  dateMethods.getDayName = function () {
+    dateMethods.checkDate();
+    
+   if (dateMethods.checkDate === true) {
+      switch (myDate.getDay()) {
         case 0:
             day = "Sunday";
             break;
@@ -56,15 +72,19 @@ var enhancedDate = (function (date) {
         case 6:
             day = "Saturday";
             break;
-    }
+      }
+    } 
     
     return;
     
-    };
+  };
   
 //Determines the full month name as a string, e.g. "January", "February", etc.  
-  var getMonthName = function () {
-    switch (setDate.getMonth()) {
+  dateMethods.getMonthName = function () {
+    dateMethods.checkDate();
+    
+    if (dateMethods.checkDate === true) {   
+      switch (setDate.getMonth()) {
         case 0:
             day = "January";
             break;
@@ -101,15 +121,17 @@ var enhancedDate = (function (date) {
         case 11:
             day = "December";
             break; 
+      }
     }
+    
     return;
   };
   
 //Return boolean true if date is in the future (from when method is called)  
-  var isFuture = function () {
+  dateMethods.isFuture = function () {
     var today = new Date();
     
-    if (setDate.Date() > today) {
+    if (myDate.getTime() > epochDate) {
       return true;
     } else {
       return false;
@@ -117,16 +139,17 @@ var enhancedDate = (function (date) {
   };
   
 //Return boolean true if the stored date is "today".  
-  var isToday = function () {
+  dateMethods.isToday = function () {
     var today = new Date();
     
-    if (setDate.Date() === today) {
+    if (myDate.getTime() === epochDate) {
       return true;
     } else {
       return false;
     }
   };
-	
+  
+  return dateMethods;	
 }());
 
 
