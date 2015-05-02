@@ -15,14 +15,13 @@ var enhancedDate = (function() {
             }
         },
         setDate: function(newDate) {
-            if (isNaN(Date.parse(newDate))) {
-                myDate = newDate();           
+            if (newDate instanceof Date || typeof newDate === 'number') {
+                myDate = new Date(newDate);
+                dateSet = true;           
             }
             else {
-                myDate = new Date(newDate);
-                dateSet = true;                                     
-            }
-            myDate.setHours(0, 0, 0, 0);    
+                myDate = new Date();                                                   
+            }              
         },
         getDayName: function() {            
             var weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
@@ -43,25 +42,29 @@ var enhancedDate = (function() {
         isFuture: function() {
             if (!dateSet) {
                 this.setDate();
-            }
-            var d = new Date();
-            d.setHours(0, 0, 0, 0);
-            return (myDate.valueOf() > d.valueOf());             
+            }           
+            return (myDate.getTime() > Date.now());             
         },
         isToday: function()  {
             if (!dateSet) {
                 this.setDate();
             }
             var d = new Date();
-            d.setHours(0, 0, 0, 0);
-            return (d.valueOf() === myDate.valueOf());                  
+            var month = d.getMonth();
+            var date = d.getDate();
+            var year = d.getFullYear();
+            if (myDate.getMonth() === month && myDate.getDate() === date && myDate.getFullYear() === year) {
+                return true;
+            } else {
+                return false;
+            }        
         }       
     };
 }) ();
 
 var message = '';
 
-enhancedDate.setDate(new Date());
+enhancedDate.setDate(new Date(2016,1,1));
 
 message += enhancedDate.getDate(true); 
 message += '\n' + enhancedDate.getDate(false);
