@@ -4,6 +4,7 @@ var enhancedDate = (function(window, undefined) {
 	var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 	var month = ["January", "February", "March", "April", "May", "June", "July", "Auguest", "September", "October", "Novenber", "December"];
 	var current = new Date();
+	var oDate = false;
 
 	function _setDate(oDate) {
 		if(oDate instanceof Date) {
@@ -11,6 +12,8 @@ var enhancedDate = (function(window, undefined) {
 		} else {
 			_date = current;
 		}
+
+		oDate = true;
 	}
 	function _getDate(oDate) {
 		if(oDate === true) {
