@@ -4,7 +4,7 @@ var enhancedDate = (function(window, undefined) {
 	var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 	var month = ["January", "February", "March", "April", "May", "June", "July", "Auguest", "September", "October", "Novenber", "December"];
 	var current = new Date();
-	var oDate = false;
+	var setDate = false;
 
 	function _setDate(oDate) {
 		if(oDate instanceof Date) {
@@ -13,9 +13,13 @@ var enhancedDate = (function(window, undefined) {
 			_date = current;
 		}
 
-		oDate = true;
+		setDate = true;
 	}
 	function _getDate(oDate) {
+		if(!setDate) {
+			_setDate();
+		}
+
 		if(oDate === true) {
 			return _date;
 		} else {
@@ -23,12 +27,21 @@ var enhancedDate = (function(window, undefined) {
 		}
 	}
 	function _getDayName() {
+		if(!setDate) {
+			_setDate();
+		}
 		return weekday[_date.getDay()];
 	}
 	function _getMonthName() {
+		if(!setDate) {
+			_setDate();
+		}
 		return month[_date.getMonth()];
 	}
 	function _isFuture() {
+		if(!setDate) {
+			_setDate();
+		}
 		if( _date.getDay() >= current.getDay() ) {
 			return true;
 		} else {
@@ -36,6 +49,10 @@ var enhancedDate = (function(window, undefined) {
 		}
 	}
 	function _isToday() {
+		if(!setDate) {
+			_setDate();
+		}
+		
 		var today = new Date();
 		var month = today.getMonth();
 		var date = today.getDate();
